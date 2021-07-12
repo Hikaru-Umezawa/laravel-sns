@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function index(){
     //ダミーデータ
     $articles = [
         (object)[
@@ -27,7 +28,8 @@ class ArticleController extends Controller
                 'id' => 2,
                 'name' => 'ユーザー名2',
             ],
-        ],(object)[
+        ],
+        (object)[
             'id' => 3,
             'title' => 'title3',
             'body' => '本文3',
@@ -39,5 +41,6 @@ class ArticleController extends Controller
         ],
     ];
 
-    return view('article_index',['articles' => $articles]);
+    return view('article.index',['articles' => $articles]);
+  }
 }
