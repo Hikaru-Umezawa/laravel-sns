@@ -3,44 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Article;
 
 class ArticleController extends Controller
 {
-    public function index(){
-    //ダミーデータ
-    $articles = [
-        (object)[
-            'id' => 1,
-            'title' => 'title1',
-            'body' => '本文1',
-            'created_at' => now(),
-            'user' => (object)[
-                'id' => 1,
-                'name' => 'ユーザー名1',
-            ],
-        ],
-        (object)[
-            'id' => 2,
-            'title' => 'title2',
-            'body' => '本文2',
-            'created_at' => now(),
-            'user' => (object)[
-                'id' => 2,
-                'name' => 'ユーザー名2',
-            ],
-        ],
-        (object)[
-            'id' => 3,
-            'title' => 'title3',
-            'body' => '本文3',
-            'created_at' => now(),
-            'user' => (object)[
-                'id' => 3,
-                'name' => 'ユーザー名3',
-            ],
-        ],
-    ];
+    public function index()
+    {
+        $articles = Article::all()->sortByDesc('created_at');
 
-    return view('article.index',['articles' => $articles]);
-  }
+        return view('article.index', ['articles' => $articles]);
+    }
 }
