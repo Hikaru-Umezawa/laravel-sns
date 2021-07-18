@@ -34,7 +34,7 @@ class ArticleController extends Controller
     //記事編集表示
     public function edit(Article $article)
     {
-        return view('articles..edit',['article' => $article]);
+        return view('articles..edit', ['article' => $article]);
     }
 
     //記事編集処理
@@ -45,8 +45,15 @@ class ArticleController extends Controller
     }
 
     //記事削除処理
-    public function destroy(Article $article){
+    public function destroy(Article $article)
+    {
         $article->delete();
         return redirect()->route('articles.index');
+    }
+
+    //記事詳細表示
+    public function show(Article $article)
+    {
+        return view('articles.show', ['article' => $article]);
     }
 }
