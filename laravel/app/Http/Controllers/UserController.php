@@ -11,7 +11,18 @@ class UserController extends Controller
     {
         $user = User::where('name', $name)->first();
 
-        return view('users.show', ['user' => $user,]);
+        $articles = $user->articles->sortByDesc('created_at');
+
+        return view('users.show', ['user' => $user, 'articles' => $articles]);
+    }
+
+    public function likes(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $articles = $user->likes->sortByDesc('created_at');
+
+        return view('users.likes', ['user' => $user, 'articles' => $articles]);
     }
 
     public function follow(Request $request, string $name)
@@ -42,5 +53,23 @@ class UserController extends Controller
         $request->user()->followings()->detach($user);
 
         return ['name' => $name];
+    }
+
+    public function getFollowings(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $followings = $user->followings->sortByDesc('created_at');
+
+        return view('users.followings', ['user' => $user, 'followings' => $followings]);
+    }
+
+    public function getFollowers(string $name)
+    {
+        $user = User::where('name', $name)->first();
+
+        $followers = $user->followers->sortByDesc('created_at');
+
+        return view('users.follower', ['user' => $user, 'followers' => $followers]);
     }
 }
